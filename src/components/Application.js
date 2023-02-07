@@ -6,24 +6,28 @@ import Appointment from "./Appointment";
 
 export default function Application(props) {
   
-  const [selectedDay, setSelectedDay] = useState("Monday"); 
-  const [days, setDays] = useState([]);
+  const [state, setState] = useState({
+    day: "Monday",
+    interviewer: 2,
+    days: [],
+    appointments: {},
+    interviewers: []    
+  });
 
-  const [appointments, setAppointments] = useState([]);
-  const [interviewers, setInterviewers] = useState([]);
+  const setDay = day => setState({ ...state, day });
+  const setDays = day => setState({ ...state, days });
+
   useEffect( () => {
     Promise.all([
       axios.get('http://localhost:8001/api/days'),
       axios.get('http://localhost:8001/api/appointments'),
       axios.get('http://localhost:8001/api/interviewers')
     ]).then((all) => {
-      setDays(all[0].data);
-      setAppointments(all[1].data);
-      setInterviewers(all[2].data);
+      setState(prev => ({...prev, days: all[0].data, appointments: all[1].data,interviewers: all[2].data}));
     }).catch( (err) => {
       console.log(err.message);
     });
-  }, [selectedDay]);
+  }, []);
 
   return (
     <main className="layout">
@@ -36,9 +40,9 @@ export default function Application(props) {
 <hr className="sidebar__separator sidebar--centered" />
 <nav className="sidebar__menu">
   <DayList
-  days={days}
-  value={selectedDay}
-  onChange={setSelectedDay} />
+  days={state.days}
+  value={state.day}
+  onChange={setDay} />
 </nav>
 <img
   className="sidebar__lhl sidebar--centered"
