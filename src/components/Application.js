@@ -3,6 +3,7 @@ import axios from "axios";
 import "./Application.scss";
 import DayList from "components/DayList";
 import Appointment from "./Appointment";
+import {getAppointmentsForDay, getInterview} from 'helpers/selectors';
 
 export default function Application(props) {
   const [state, setState] = useState({
@@ -14,6 +15,21 @@ export default function Application(props) {
   });
 
   const setDay = (day) => setState({ ...state, day });
+
+  const appointments = getAppointmentsForDay(state, state.day);
+
+const schedule = appointments.map((appointment) => {
+  const interview = getInterview(state, appointment.interview);
+
+  return (
+    <Appointment
+      key={appointment.id}
+      id={appointment.id}
+      time={appointment.time}
+      interview={interview}
+    />
+  );
+});
 
   useEffect(() => {
     Promise.all([
@@ -44,7 +60,7 @@ export default function Application(props) {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-          <DayList days={state.days} value={state.day} onChange={setDay} />
+          <DayList days={state.days} day={state.day} setDay={setDay} />
         </nav>
         <img
           className="sidebar__lhl sidebar--centered"
@@ -53,9 +69,10 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {Object.values(state.appointments).map((app) => {
-          return <Appointment key={app.id} {...app} />;
-        })}
+        <ul>
+          {schedule}
+          <Appointment key="last" time="5pm" />
+        </ul>
       </section>
     </main>
   );
