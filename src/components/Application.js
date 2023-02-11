@@ -3,7 +3,11 @@ import axios from "axios";
 import "./Application.scss";
 import DayList from "components/DayList";
 import Appointment from "./Appointment";
-import {getAppointmentsForDay, getInterview, getInterviewersForDay} from 'helpers/selectors';
+import {
+  getAppointmentsForDay,
+  getInterview,
+  getInterviewersForDay,
+} from "helpers/selectors";
 
 export default function Application(props) {
   const [state, setState] = useState({
@@ -12,26 +16,47 @@ export default function Application(props) {
     days: [],
     appointments: {},
     interviewers: [],
+    bookInterview: [],
   });
 
   const setDay = (day) => setState({ ...state, day });
-
+  //here
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview,
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+    axios
+      .put(`/api/appointments/${id}`, appointment)
+      .then(() => {
+        setState({ ...state, appointments });
+      })
+      .catch((response) => {
+        console.log("There was an error with the put request: ", response);
+      });
+  }
+  //to here
   const appointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
 
-const schedule = appointments.map((appointment) => {
-  const interview = getInterview(state, appointment.interview);
+  const schedule = appointments.map((appointment) => {
+    const interview = getInterview(state, appointment.interview);
 
-  return (
-    <Appointment
-      key={appointment.id}
-      id={appointment.id}
-      time={appointment.time}
-      interview={interview}
-      interviewers={interviewers}
-    />
-  );
-});
+    return (
+      <Appointment
+        key={appointment.id}
+        id={appointment.id}
+        time={appointment.time}
+        interview={interview}
+        interviewers={interviewers}
+        bookInterview={bookInterview}
+      />
+    );
+  });
 
   useEffect(() => {
     Promise.all([
@@ -50,7 +75,7 @@ const schedule = appointments.map((appointment) => {
       .catch((err) => {
         console.log(err.message);
       });
-  }, []);
+  }, [state]);
 
   return (
     <main className="layout">
