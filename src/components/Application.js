@@ -30,7 +30,7 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment,
     };
-    axios
+    return axios
       .put(`/api/appointments/${id}`, appointment)
       .then(() => {
         setState({ ...state, appointments });
@@ -39,6 +39,14 @@ export default function Application(props) {
         console.log("There was an error with the put request: ", response);
       });
   }
+
+  function deleteInterview(id) {
+    return axios.delete(`/api/appointments/${id}`)
+    .then(() => {
+      refreshData();
+    });
+  }
+
   //to here
   const appointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
@@ -54,11 +62,12 @@ export default function Application(props) {
         interview={interview}
         interviewers={interviewers}
         bookInterview={bookInterview}
+        deleteInterview={deleteInterview}
       />
     );
   });
 
-  useEffect(() => {
+  const refreshData = () => {
     Promise.all([
       axios.get("http://localhost:8001/api/days"),
       axios.get("http://localhost:8001/api/appointments"),
@@ -75,7 +84,8 @@ export default function Application(props) {
       .catch((err) => {
         console.log(err.message);
       });
-  }, [state]);
+  };
+  useEffect(refreshData, []);
 
   return (
     <main className="layout">
