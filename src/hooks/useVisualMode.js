@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react"
 
 export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
@@ -14,6 +14,7 @@ export default function useVisualMode(initial) {
     setHistory((prev) => [...prev].slice(0, -1))
 
   }
-  return { mode, transition, back };
-}
 
+  return { mode, transition, back }
+
+}

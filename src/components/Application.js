@@ -20,7 +20,7 @@ export default function Application(props) {
   });
 
   const setDay = (day) => setState({ ...state, day });
-  //here
+  
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
@@ -34,9 +34,6 @@ export default function Application(props) {
       .put(`/api/appointments/${id}`, appointment)
       .then(() => {
         setState({ ...state, appointments });
-      })
-      .catch((response) => {
-        console.log("There was an error with the put request: ", response);
       });
   }
 
@@ -47,7 +44,6 @@ export default function Application(props) {
     });
   }
 
-  //to here
   const appointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
 
