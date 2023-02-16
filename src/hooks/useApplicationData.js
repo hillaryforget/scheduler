@@ -23,20 +23,49 @@ const setDay = (day) => setState({ ...state, day });
       ...state.appointments,
       [id]: appointment,
     };
+    //
     return axios
-      .put(`/api/appointments/${id}`, appointment)
-      .then(() => {
-        setState({ ...state, appointments });
-      });
-  }
+      .put(`/api/appointments/${id}`, { interview })
+      .then(() => 
+      setState({ ...state, appointments }), 
+      updateSpots(state, state.day, appointments))
+    }
 
   function deleteInterview(id) {
+    const appointment = {
+      ...state.appointments[id],
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
     return axios.delete(`/api/appointments/${id}`)
-    .then(() => {
-      refreshData();
-    });
+    .then(() => 
+    setState({ ...state, appointments }),
+    updateSpots(state, state.day, appointments))
   }
 
+  function updateSpots(state, day, appointments) {
+    let count = 0;
+    const filterDay = state.days.filter(days => days.name === day);
+    const filterAppointments = filterDay[0].appointments;
+
+    for (const appointmentKey in filterAppointments) {
+      if (!appointments[filterAppointments[appointmentKey]].interview) {
+        count += 1;
+      }
+    }
+
+    state.days.map(days => {
+      if (days.name === day) {
+        days.spots = count;
+      }
+      return ('count changed');
+    });
+
+    return count;
+  }
+//
   const refreshData = () => {
     Promise.all([
       axios.get("http://localhost:8001/api/days"),
