@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
 
@@ -13,7 +12,7 @@ export default function Form(props) {
     setStudent("");
     setInterviewer(null);
   };
-  // Called below onClick of the cancel button
+
   const cancel = () => {
     reset();
     props.onCancel();
@@ -55,7 +54,6 @@ export default function Form(props) {
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button onClick={cancel} danger>Cancel</Button>
-          {/* Clicking Save updates the student and interviewer state and passes it up to the application state */}
           <Button onClick={validate} confirm>Save</Button>
         </section>
       </section>
