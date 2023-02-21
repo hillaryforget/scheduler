@@ -1,4 +1,5 @@
 import React from "react";
+
 import { render, fireEvent, cleanup } from "@testing-library/react";
 
 import Form from "components/Appointment/Form";
@@ -103,7 +104,9 @@ describe("Form", () => {
     fireEvent.click(getByText("Cancel"));
   
     expect(queryByText(/student name cannot be blank/i)).toBeNull();
+  
     expect(getByPlaceholderText("Enter Student Name")).toHaveValue("");
+  
     expect(onCancel).toHaveBeenCalledTimes(1);
   });
 });
