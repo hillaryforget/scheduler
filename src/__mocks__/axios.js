@@ -53,10 +53,11 @@ const fixtures = {
   }
 };
 
-
-
-
 export default {
+  // defaults: {
+  //   baseURL: 'https://scheduler-api-production-e37e.up.railway.app'
+  // },
+
   get: jest.fn(url => {
     if (url === "/api/days") {
       return Promise.resolve({
@@ -64,7 +65,7 @@ export default {
         statusText: "OK",
         data: fixtures.days
       });
-    }
+    };
 
     if (url === "/api/appointments") {
       return Promise.resolve({
@@ -72,26 +73,28 @@ export default {
         statusText: "OK",
         data: fixtures.appointments
       });
-    }
+    };
 
     if (url === "/api/interviewers") {
       return Promise.resolve({
         status: 200,
         statusText: "OK",
         data: fixtures.interviewers
-      })
-    }
+      });
+    };
   }),
-  put: jest.fn(() => {
+
+  put: jest.fn((url, body) => {
     return Promise.resolve({
       status: 204,
-      statusText: "No Content",
+      statusText: "No Content"
     });
   }),
-  delete: jest.fn(() => {
+
+  delete: jest.fn((url) => {
     return Promise.resolve({
       status: 204,
-      statusText: "Deleted"
-    })
+      statusText: "No Content"
+    });
   })
-}
+};
