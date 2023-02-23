@@ -54,12 +54,9 @@ const fixtures = {
 };
 
 export default {
-  // defaults: {
-  //   baseURL: 'https://scheduler-api-production-e37e.up.railway.app'
-  // },
-
+  
   get: jest.fn(url => {
-    if (url === "/api/days") {
+    if (url.includes("/api/days")) {
       return Promise.resolve({
         status: 200,
         statusText: "OK",
@@ -67,7 +64,7 @@ export default {
       });
     };
 
-    if (url === "/api/appointments") {
+    if (url.includes("/api/appointments")) {
       return Promise.resolve({
         status: 200,
         statusText: "OK",
@@ -75,7 +72,7 @@ export default {
       });
     };
 
-    if (url === "/api/interviewers") {
+    if (url.includes("/api/interviewers")) {
       return Promise.resolve({
         status: 200,
         statusText: "OK",
@@ -84,8 +81,8 @@ export default {
     };
   }),
 
-  put: jest.fn((url, body) => {
-    return Promise.resolve({
+  put: jest.fn(async (url, body) => {
+    return await Promise.resolve({
       status: 204,
       statusText: "No Content"
     });

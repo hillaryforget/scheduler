@@ -30,12 +30,10 @@ export default function Appointment(props) {
       student: name,
       interviewer,
     };
-    console.log("Saving");
     props
       .bookInterview(props.id, interview)
       .then(() => transition(SHOW))
       .catch((error) => {
-        console.log("error saving", ERROR_SAVE);
         transition(ERROR_SAVE, true)
       });
   }
@@ -57,8 +55,7 @@ export default function Appointment(props) {
   }
 
   return (
-    <article className="appointment">
-      <article className="appointment" data-testid="appointment"></article>
+    <article className="appointment" data-testid="appointment">
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => transition(FORM)} />}
       {mode === SHOW &&  <Show

@@ -33,8 +33,6 @@ storiesOf("Button", module)
     </Button>
   ));
 
-
-
   storiesOf("DayListItem", module) //Initiates Storybook and registers our DayListItem component
   .addParameters({
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
