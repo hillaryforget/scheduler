@@ -1,5 +1,7 @@
 # Interview Scheduler
 
+Using the latest tools and techniques, we build and test a React application that allows users to book and cancel interviews. We combine a concise API with a WebSocket server to build a realtime experience. 
+
 ## Setup
 
 Install dependencies with `npm install`.
@@ -21,3 +23,42 @@ npm test
 ```sh
 npm run storybook
 ```
+
+## Running Cypress Visual Testbed
+
+1. Clone the scheduler-api repo: 
+
+```sh
+https://github.com/lighthouse-labs/scheduler-api
+```
+
+2. Run API server in test mode:
+
+```sh
+npm run test:server
+```
+
+3. Send a GET request to reset the DB:
+
+```sh
+curl http://localhost:8001/api/debug/reset
+```
+
+4. Run Cypress:
+
+```sh
+npm run cypress
+```
+
+## Dependencies
+
+* Axios
+* Classnames
+* Normalize
+* React
+* Storybook
+* Cypress
+* Jest
+
+## Demo
+
