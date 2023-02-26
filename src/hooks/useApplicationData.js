@@ -18,14 +18,14 @@ export default function useApplicationData() {
       refreshData();
       updateSpots(state, state.day, state.appointments);
     });
-  }
+  };
 
   function deleteInterview(id) {
     return axios.delete(`/api/appointments/${id}`).then(() => {
       refreshData();
       updateSpots(state, state.day, state.appointments);
     });
-  }
+  };
 
   function updateSpots(state, day, appointments) {
     let count = 0;
@@ -35,19 +35,19 @@ export default function useApplicationData() {
     for (const appointmentKey in filterAppointments) {
       if (!appointments[filterAppointments[appointmentKey]].interview) {
         count += 1;
-      }
-    }
+      };
+    };
 
     state.days.map((days) => {
       if (days.name === day) {
         days.spots = count;
-      }
+      };
       return "count changed";
     });
 
     return count;
-  }
-  
+  };
+
   const refreshData = () => {
     Promise.all([
       axios.get("http://localhost:8001/api/days"),
@@ -74,4 +74,4 @@ export default function useApplicationData() {
     bookInterview,
     deleteInterview,
   };
-}
+};

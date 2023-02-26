@@ -34,9 +34,9 @@ export default function Appointment(props) {
       .bookInterview(props.id, interview)
       .then(() => transition(SHOW))
       .catch((error) => {
-        transition(ERROR_SAVE, true)
+        transition(ERROR_SAVE, true);
       });
-  }
+  };
 
   function deleteInterview(event) {
     transition(DELETING, true);
@@ -44,46 +44,59 @@ export default function Appointment(props) {
       .deleteInterview(props.id)
       .then(() => transition(EMPTY))
       .catch((error) => transition(ERROR_DELETE, true));
-  }
+  };
 
   function edit() {
     transition(EDIT);
-  }
+  };
 
   function showCreate() {
     transition(SHOW);
-  }
+  };
 
   return (
     <article className="appointment" data-testid="appointment">
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => transition(FORM)} />}
-      {mode === SHOW &&  <Show
+      {mode === SHOW && (
+        <Show
           student={props?.interview?.student}
           interviewer={props?.interview?.interviewer}
           onDelete={() => transition(CONFIRM)}
           onEdit={edit}
         />
-      }
-      {mode === FORM && <Form interviewers={props.interviewers} onCancel={back} onSave={save} />}
-      {mode === CONFIRM && <Confirm
+      )};
+      {mode === FORM && (
+        <Form 
+        interviewers={props.interviewers} 
+        onCancel={back} 
+        onSave={save} 
+        />
+      )};
+      {mode === CONFIRM && (
+        <Confirm
           message={"Are you sure you want to delete?"}
           onConfirm={deleteInterview}
           onCancel={showCreate}
         />
-      }
-      {mode === SAVING && <Status message={"Saving"} /> }
-      {mode === DELETING && <Status message={"Deleting"} /> }
-      {mode === ERROR_SAVE && <Error message={"Can't save appointment!"} onClose={back} /> }
-      {mode === ERROR_DELETE && <Error message={"Can't delete appointment!"} onClose={back} /> }
-      {mode === EDIT && <Form
+      )};
+      {mode === SAVING && <Status message={"Saving"} />}
+      {mode === DELETING && <Status message={"Deleting"} />}
+      {mode === ERROR_SAVE && (
+        <Error message={"Can't save appointment!"} onClose={back} />
+      )};
+      {mode === ERROR_DELETE && (
+        <Error message={"Can't delete appointment!"} onClose={back} />
+      )};
+      {mode === EDIT && (
+        <Form
           student={props?.interview?.student}
           interviewer={props?.interview?.interviewer?.id}
           interviewers={props?.interviewers}
           onCancel={back}
           onSave={save}
         />
-      }
+      )};
     </article>
   );
-}
+};

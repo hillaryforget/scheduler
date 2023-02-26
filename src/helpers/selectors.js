@@ -12,9 +12,9 @@ export const getInterview = (state, interview) => {
   } else {
     interviewObject.student = interview.student;
     interviewObject.interviewer = state.interviewers[interview.interviewer];
-  }
+  };
   return interviewObject;
-}
+};
 
 export const getInterviewersForDay = (state, day) => {
   const selectedDay = state.days.find((item) => item.name === day);
