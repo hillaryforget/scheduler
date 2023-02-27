@@ -65,29 +65,29 @@ export default function Appointment(props) {
           onDelete={() => transition(CONFIRM)}
           onEdit={edit}
         />
-      )};
+      )}
       {mode === FORM && (
         <Form 
         interviewers={props.interviewers} 
         onCancel={back} 
         onSave={save} 
         />
-      )};
+      )}
       {mode === CONFIRM && (
         <Confirm
           message={"Are you sure you want to delete?"}
           onConfirm={deleteInterview}
           onCancel={showCreate}
         />
-      )};
+      )}
       {mode === SAVING && <Status message={"Saving"} />}
       {mode === DELETING && <Status message={"Deleting"} />}
       {mode === ERROR_SAVE && (
         <Error message={"Can't save appointment!"} onClose={back} />
-      )};
+      )}
       {mode === ERROR_DELETE && (
         <Error message={"Can't delete appointment!"} onClose={back} />
-      )};
+      )}
       {mode === EDIT && (
         <Form
           student={props?.interview?.student}
@@ -96,7 +96,7 @@ export default function Appointment(props) {
           onCancel={back}
           onSave={save}
         />
-      )};
+      )}
     </article>
   );
 };
