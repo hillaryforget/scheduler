@@ -13,6 +13,7 @@ export default function Application(props) {
   const { state, setDay, bookInterview, deleteInterview } =
     useApplicationData();
 
+  // List of appointments and interviewers for the current day in state
   const appointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
 

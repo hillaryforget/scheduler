@@ -24,6 +24,7 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
+  // Changes the state variable at the application level when we save the form
   function save(name, interviewer) {
     transition(SAVING);
     const interview = {

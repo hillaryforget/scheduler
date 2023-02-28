@@ -48,6 +48,7 @@ storiesOf("DayListItem", module) //Initiates Storybook and registers our DayList
     /> // action() allows us to create a callback that appears in the actions panel when clicked
   ));
 
+// Mock data for testing DayList
 const days = [
   {
     id: 1,
@@ -92,6 +93,7 @@ storiesOf("DayList", module)
     />
   ));
 
+// Mock data for testing InterviewerListItem
 const interviewer = {
   id: 1,
   name: "Sylvia Palmer",
@@ -125,6 +127,7 @@ storiesOf("InterviewerListItem", module)
     />
   ));
 
+// Mock data for testing InterviewerList component
 const interviewers = [
   { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },
   { id: 2, name: "Tori Malcolm", avatar: "https://i.imgur.com/Nmx0Qxo.png" },

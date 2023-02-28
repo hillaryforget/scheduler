@@ -29,6 +29,7 @@ describe("Application", () => {
   });
 
   it("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
+    // Render the app
     const { container } = render(<Application />);
 
     await waitForElement(() => getByText(container, /Archie Cohen/i));
@@ -40,6 +41,7 @@ describe("Application", () => {
       target: { value: "Lydia Miller-Jones" },
     });
 
+    // Selects an interviewer
     fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
 
     // Ignore warning related to the act() function?
@@ -70,6 +72,7 @@ describe("Application", () => {
     const monday = getAllByTestId(container, "day").find((day) => {
       return queryByText(day, "Monday");
     });
+    // Make sure our booked day's spots count went down by 1
     expect(getByText(monday, "1 spot remaining")).toBeInTheDocument();
   });
 
@@ -86,6 +89,7 @@ describe("Application", () => {
 
     expect(getByDisplayValue(appointment, "Archie Cohen")).toBeInTheDocument();
 
+    // Replace the input field's value with the new name
     fireEvent.change(getByDisplayValue(appointment, "Archie Cohen"), {
       target: { value: "Lydia Miller-Jones" },
     });
@@ -108,6 +112,7 @@ describe("Application", () => {
 
     await waitForElement(() => getByText(container, "Archie Cohen"));
 
+    // States that the next put request that we call in the test will fail
     axios.put.mockRejectedValueOnce();
 
     const appointment = getAllByTestId(container, "appointment")[0];
