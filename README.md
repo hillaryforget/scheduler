@@ -61,9 +61,9 @@ npm run cypress
 * Jest
 
 ## Demo
-
+### Create Appointment
 ![Create Appointment](docs/scheduler%20create%20interview.gif)
-
+### Edit Appointment
 ![Edit Appointment](docs/scheduler%20edit.gif)
-
+### Delete Appointment
 ![Delete Appointment](docs/scheduler%20delete.gif)
