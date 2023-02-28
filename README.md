@@ -62,3 +62,8 @@ npm run cypress
 
 ## Demo
 
+![Create Appointment](docs/scheduler%20create%20interview.gif)
+
+![Edit Appointment](docs/scheduler%20edit.gif)
+
+![Delete Appointment](docs/scheduler%20delete.gif)
