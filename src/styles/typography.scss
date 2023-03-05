@@ -7,7 +7,7 @@ $weights: (
 );
 
 @each $weight, $value in $weights {
-  .text--#{$weight} {
+  .text--#{'' + $weight} {
     font-weight: $value;
   }
 }
